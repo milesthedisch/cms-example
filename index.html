@@ -1,0 +1,68 @@
+<html>
+  <head></head>
+  <body>
+    <div>
+      <h1>Blogs</h1>
+      <ul id="blog-list-container"></ul>
+    </div>
+  </body>
+  <script>
+    // This is the function that fetches data;
+    const fetcher = () => fetch("http://localhost:3001");
+
+    // This is the function that logs that data and calls the fetch function
+    const logFunction = async () => {
+      let result;
+
+      try {
+        result = await fetcher();
+      } catch (e) {
+        // Failed scenario
+        console.error(e);
+      }
+
+      const data = await result.json();
+
+      if (data.length) {
+        // This is manually injecting data;
+
+        // const firstListItem = document.querySelector("#first-blog");
+        // const secondListItem = document.querySelector("#second-blog");
+        // const thirdListItem = document.querySelector("#third-blog");
+        // const fourthListItem = document.querySelector("#fourth-blog");
+
+        // firstListItem.textContent = data[0].blogTitle;
+        // secondListItem.textContent = data[1].blogTitle;
+        // thirdListItem.textContent = data[2].blogTitle;
+        // fourthListItem.textContent = data[3].blogTitle;
+
+        // This using for loops
+
+        // we have to minus beacuse the length is diffrent than index
+        // the length is 4 but we end at index 3
+        // console.log("length of array", data.length);
+
+        // const container = document.querySelector("#blog-list-container");
+
+        // for (var i = 0; i < data.length; i++) {
+        //  const listElement = document.createElement("li");
+        //  listElement.textContent = data[i].blogTitle;
+
+        //  container.append(listElement);
+        // }
+
+        const container = document.querySelector("#blog-list-container");
+
+        data.map((blog) => {
+          const listElement = document.createElement("li");
+
+          listElement.textContent = blog.blogTitle;
+
+          container.append(listElement);
+        });
+      }
+    };
+
+    logFunction();
+  </script>
+</html>
